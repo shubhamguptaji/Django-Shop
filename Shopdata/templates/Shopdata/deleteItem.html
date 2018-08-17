@@ -1,6 +1,7 @@
 <h3>
 	Are you sure you want to Delete {{item.name}}? </h3>
 <form action="#" method="post">
+	{% csrf_token %}
 	<button type="Submit" value="Delete">Delete</button>
-	<a href="{% url 'categories' category.id item %}">Cancel</a>
+	<a href="/Shop/categories/{{category.id}}/item/">Cancel</a>
 </form>

@@ -1,6 +1,8 @@
+<h1>{{category.cName}}</h1>
 {% for i in items %}
 <span>
 	<h2>{{ i.name }}</h2>
+	<h1>{{i.categories_id}}</h1>
 </span>
 <span class="float">{{i.price}}</span>
 <p>{{i.description}}</p>
@@ -10,11 +12,10 @@
 <p>
 	<img src="{{ i.image }}" height="200" width="150">
 </p>
-{% if username == i.seller_name %}
 <p>
-	<a href="{% url 'editItem' i.id %}">Edit</a>
+	<a href="/Shop/categories/{{category.id}}/item/{{i.id}}/edit/">Edit</a>
 </p>
 <p>
-	<a href="#">Delete</a>
+	<a href="/Shop/categories/{{category.id}}/item/{{i.id}}/delete/">Delete</a>
 </p>
-{% endif %} {% endfor %}
+{% endfor %}

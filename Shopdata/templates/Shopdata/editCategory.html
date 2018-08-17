@@ -6,7 +6,8 @@
 	<strong>{{ error_message }}</strong>
 </p>
 {% endif %}
-<form action="{% url 'categories' %}" method="post">
+<form action="/Shop/categories/" method="post">
+	{% csrf_token %}
 	<label>Enter name:</label>
 	<input type="text" name="name" placeholder="{{category.name}}">
 	</br>
@@ -14,4 +15,4 @@
 	<input name="image" type="text" value="Enter image url">
 	<button type="Submit">Change</button>
 </form>
-<a href="{% url 'categories' %}">Cancel</a>
+<a href="/Shop/categories/">Cancel</a>

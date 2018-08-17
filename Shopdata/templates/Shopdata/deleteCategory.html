@@ -1,5 +1,6 @@
-<form action="#" method="POST">
-	<h2>Are you sure you want to delete {{category.name}}?</h2>
+<form action="/Shop/categories/" method="POST">
+	{% csrf_token %}
+	<h2>Are you sure you want to delete {{category}}?</h2>
 	<button type="submit" id="submit">Delete</button>
-	<a href="{% url 'categories' %}">Cancel</a>
+	<a href="/Shop/categories/">Cancel</a>
 </form>
