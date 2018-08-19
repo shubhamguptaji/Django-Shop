@@ -1,12 +1,12 @@
 <h1>
-	Edit {{ category.name }}
+	Edit {{ category.id }}
 </h1>
 {% if error_message %}
 <p>
 	<strong>{{ error_message }}</strong>
 </p>
 {% endif %}
-<form action="/Shop/categories/" method="post">
+<form action="/Shop/categories/" method="POST">
 	{% csrf_token %}
 	<label>Enter name:</label>
 	<input type="text" name="name" placeholder="{{category.name}}">

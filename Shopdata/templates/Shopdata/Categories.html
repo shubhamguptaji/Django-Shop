@@ -1,14 +1,7 @@
 <a href="/Shop/categories/new/">Add Category</a>
 {% for category in categories %}
 <a href="/Shop/categories/{{category.id}}/item">
-    <h3>{{ category.name}}</h3>
+    <h3>{{ category.cName }}</h3>
     <img src="{{category.image}}" height="200" width="150">
 </a>
-<p>
-    <a href="{% url 'editCategory' category.id %}">Edit</a>
-</p>
-<p>
-    <a href="{% url 'deleteCategory' category.id %}">Delete</a>
-</p>
-</br>
 {% endfor %}

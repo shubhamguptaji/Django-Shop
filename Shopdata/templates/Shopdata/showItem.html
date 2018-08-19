@@ -1,9 +1,11 @@
 <h1>{{category.cName}}</h1>
+<a href="/Shop/categories/{{category.id}}/item/new/">add new item</a>
 {% for i in items %}
 <span>
 	<h2>{{ i.name }}</h2>
 	<h1>{{i.categories_id}}</h1>
 </span>
+
 <span class="float">{{i.price}}</span>
 <p>{{i.description}}</p>
 <p>{{i.seller_name}}</p>

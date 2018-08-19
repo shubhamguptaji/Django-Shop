@@ -16,12 +16,11 @@ def categories(request):
 
 def showItem(request, Categories_id):
     category = get_object_or_404(Categories, pk=Categories_id)
-    items = Items.objects.all()
+    items = Items.objects.filter(categories_id=Categories_id)
     data = {
         'category': category,
         'items': items,
     }
-    print(items[1].categories_id)
     return render(request, 'Shopdata/showItem.html', data)
 
 
@@ -31,11 +30,12 @@ def editCategory(request, Categories_id):
         'category': category.cName
     }
     if request.method == 'POST':
+        print()
         # if request.get('name') and request.get('image'):
-        editedCategory = Categories()
-        editedCategory.cName = request.get('name')
-        editedCategory.image = request.get('image')
-        editedCategory.save()
+        editedcategory = Categories()
+        editedcategory.cName = request.POST.get('name')
+        editedcategory.image = request.POST.get('image')
+        editedcategory.save()
         print("done")
         return render(request, 'Shopdata/Categories.html', categories)
     else:
@@ -44,35 +44,60 @@ def editCategory(request, Categories_id):
 
 
 def deleteCategory(request, Categories_id):
-    allCategories = Categories.objects.all()
     category = get_object_or_404(Categories, pk=Categories_id)
+    allCategories = Categories.objects.all()
     categories = {
-        'category': category.cName
+        'category': category
     }
     if request.method == 'POST':
-        category.delete()
-        print("Done")
+        deleteCategory = Categories()
+        deleteCategory = category
+        deleteCategory.delete()
         return render(request, 'Shopdata/Categories.html', allCategories)
     else:
         return render(request, 'Shopdata/deleteCategory.html', categories)
 
 
 def newItem(request, Categories_id):
+    categories = Categories.objects.all()
     category = get_object_or_404(Categories, pk=Categories_id)
     data = {
-        'category': category.cName
+        'category': category.cName,
+        'categories':categories
     }
-    return render(request, 'Shopdata/newItem.html', data)
+    if request.method == 'POST':
+        newCategory = Items()
+        newCategory.name = request.POST.get('name')
+        newCategory.description = request.POST.get('description')
+        newCategory.price = request.POST.get('price')
+        newCategory.seller_name = request.POST.get('seller_name')
+        newCategory.seller_address = request.POST.get('seller_address')
+        newCategory.seller_phoneno = request.POST.get('seller_phoneno')
+        newCategory.image = request.POST.get('image')
+        newCategory.categories_id = Categories_id
+        newCategory.save()
+        return render(request, 'Shopdata/categories.html', data)
+    else:
+        return render(request, 'Shopdata/newItem.html', data)
 
 
 def deleteItem(request, Categories_id, Items_id):
     category = get_object_or_404(Categories, pk=Categories_id)
+    items = Items.objects.all()
     item = get_object_or_404(Items, pk=Items_id)
     data = {
         'category': category,
-        'item': item
+        'item': item,
+        'items': items,
     }
-    return render(request, 'Shopdata/deleteItem.html', data)
+    print(item.categories_id)
+    if request.method == 'POST':
+        delete_item = Items()
+        delete_item = item
+        delete_item.delete()
+        return render(request, 'Shopdata/showitem.html', data)
+    else:
+        return render(request, 'Shopdata/deleteItem.html', data)
 
 
 def editItem(request, Categories_id, Items_id):
@@ -82,6 +107,8 @@ def editItem(request, Categories_id, Items_id):
         'category': category,
         'item': item.name,
     }
+    if request.method == 'POST':
+        editedItem = Items()
     return render(request, 'Shopdata/editItem.html', data)
 
 
